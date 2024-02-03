@@ -3,7 +3,7 @@ import usePaises from '../../hooks/usePaises'
 export default function SelectPaises() {
     const paises = usePaises();
     return (
-        <select id="paises">
+        <select id="paises" name="paises">
             <option value="">Seleccione...</option>
             {
                 paises ? paises.map(pais =>
