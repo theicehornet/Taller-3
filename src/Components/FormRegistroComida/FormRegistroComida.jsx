@@ -13,9 +13,10 @@ export default function FormRegistroComida() {
         const plato = {
             "idAlimento": parseInt(fields.get("idComida")),
             "idUsuario": parseInt(fields.get("iduser")),
-            "cantidad": cantidad,
+            "cantidad": cantidad ? cantidad : NaN,
             "fecha": fields.get("fechaConsumo")
         }
+        console.log(plato)
         if (validateForm(plato)) {
             sendRegisterComida(plato)
         }
