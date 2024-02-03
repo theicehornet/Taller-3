@@ -1,28 +1,60 @@
+import { useState } from "react";
 
-
-export default function NavInformation() {
-    const userData = localStorage.getItem("userData");
-    const handleClickCerrarSession = () => {
-        localStorage.setItem("userData", '')
-    }
-
+function SessionActiva({ fun } ) {
 
     return (
         <>
+            <li>
+                <a ><p>Analisis</p></a>
+            </li>
+            <li>
+                <a ><p>Informe</p></a>
+            </li>
+            <li>
+                <a ><p>Listado de Registros</p></a>
+            </li>
+            <li>
+                <a ><p>Agregar Registros</p></a>
+            </li>
+            <li>
+                <a onClick={fun}><p>Cerrar Session</p></a>
+            </li>
+        </>
+    )
+}
+
+function SessionNoActiva({ fun } ) {
+
+    return (
+        <>
+            <li>
+                <a onClick={fun }><p>Iniciar Session</p></a>
+            </li>
+            <li>
+                <a onClick={fun}><p>Registrarse</p></a>
+            </li>
+        </>
+    )
+}
+
+
+export default function NavInformation() {
+    const [userData, setUserData] = useState(localStorage.getItem("userData"))
+    const handleClickCerrarSession = () => {
+        localStorage.setItem("userData", '')
+        setUserData('');
+    }
+    const handleClickRegistroSession = () => {
+        localStorage.setItem("userData", 'Registro')
+        setUserData('Registro');
+    }
+    return (
+        <>
             {
-                userData ? (
-                    <li>
-                        <a onClick={handleClickCerrarSession}><p>Cerrar Session</p></a>
-                    </li >
-                ) :
-                (<>
-                    <li>
-                        <a ><p>Registrarse</p></a>
-                    </li>
-                    <li>
-                        <a ><p>Iniciar Session</p></a>
-                    </li>
-                 </>)
+                userData ?
+                    <SessionActiva fun={handleClickCerrarSession} />
+                    :
+                    <SessionNoActiva fun={handleClickRegistroSession} />
             }
         </>
     )

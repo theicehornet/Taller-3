@@ -1,4 +1,4 @@
-import usePaises from '../../hooks/usePaises'
+import usePaises from '../../../hooks/usePaises'
 
 export default function SelectPaises() {
     const paises = usePaises();

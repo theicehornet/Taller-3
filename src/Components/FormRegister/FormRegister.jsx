@@ -1,4 +1,4 @@
-import SelectPaises from '../SelectPaises/';
+import SelectPaises from './SelectPaises/';
 import { useRegisterForm } from '../../hooks/useRegisterForm'
 
 export default function FormRegister() {
@@ -22,6 +22,8 @@ export default function FormRegister() {
 
     return (
         <>
+            <h1>Registro</h1>
+            <p>Bienvenido, llene el formulario y empiece a llevar un registro de su dieta</p>
             <form method="POST" onSubmit={handleSubmitFormRegister} >
                 <label htmlFor="userName">Ingrese su usuario:</label>
                 <input id="userName" name="userName" placeholder="Luis" />

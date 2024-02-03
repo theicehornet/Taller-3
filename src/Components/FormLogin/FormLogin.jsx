@@ -16,6 +16,8 @@ export default function FormLogin() {
     }
     return (
         <>
+            <h1>Bienvenido de vuelta</h1>
+            <p>Agradecemos su preferencia con nosotros</p>
             <form method="POST" onSubmit={handleSubmitForm}>
                 <label htmlFor="userName">Ingrese su usuario:</label>
                 <input id="userName" name="userName" placeholder="Luis" />
