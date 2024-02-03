@@ -1,15 +1,13 @@
 import './App.css'
 import FormRegister from './Components/FormRegister/FormRegister'
 import FormLogin from './Components/FormLogin'
-import Nav from './Components/Nav'
+import Header from './Components/Header'
 
 function App() {
     
   return (
       <>
-          <header>
-              <Nav/>
-          </header>
+          <Header/>
           <FormRegister />
           <FormLogin/>
       </>
