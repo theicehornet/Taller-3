@@ -1,13 +1,21 @@
 import SelectComidas from "./SelectComidas/SelectComidas";
 import useRegisterComidaForm from '../../hooks/useRegisterComidaForm'
-import useComidas from '../../hooks/useComidas'
+import fetchAlimentos from '../../Services/Comidas'
+import { useState } from "react";
 
 export default function FormRegistroComida() {
-    const { comidas, errorc } = useComidas();
-    const data = localStorage.getItem("userData")
+    const [comidas, setComidas] = useState([])
+    const [errorComidas, setErrorComidas] = useState('')
+    const userdata = localStorage.getItem("userData")
     const { error, sendRegisterComida, validateForm } = useRegisterComidaForm()
 
-    const handleSubmitRegistroComida = (event) => {
+    const handleSubmitRegistroComida = async (event) => {
+        try {
+            const alimentos = await fetchAlimentos(userdata);
+            setComidas(alimentos);
+        } catch (error) {
+            setErrorComidas(error)
+        }
         event.preventDefault();
         const fields = new window.FormData(event.target)
         const cantidad = comidas.find(comida => comida.id === fields.get("idComida").porcion)
@@ -28,9 +36,9 @@ export default function FormRegistroComida() {
             <p>Llene el formulario para llevar un registro de sus comidas</p>
             <form method="POST" onSubmit={handleSubmitRegistroComida}>
                 <label htmlFor="comidas">Ingrese el plato que ha consumido:</label>
-                <SelectComidas comidas={comidas} errorc={errorc} />
+                <SelectComidas comidas={comidas} errorc={errorComidas} />
 
-                <input type="hidden" id="iduser" name="iduser" value={data.id} />
+                <input type="hidden" id="iduser" name="iduser" value={userdata.id} />
 
                 <label htmlFor="fechaConsumo">Ingrese la fecha del registro</label>
                 <input type="date" id="fechaConsumo" name="fechaConsumo" />
