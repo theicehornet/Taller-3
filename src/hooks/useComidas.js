@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 
-export default function useFetchPaises() {
+export default function useComidas() {
     const [comidas, setComidas] = useState([]);
     const [errorc, setErrorc] = useState('');
     const userData = localStorage.getItem("userData")
     useEffect(() => {
-        const fetchPaises = async () => {
+        const fetchAlimentos = async () => {
             try {
                 const response = await fetch("https://calcount.develotion.com/alimentos.php", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "apikey": userData.apiKey,
-                        "iduser": userData.id,
+                        "apikey": "a5c61edd5c386893f9af3ed2cb669eb0",
+                        "iduser": "1161",
                     }
                 });
                 if (!response.ok) {
@@ -26,8 +26,7 @@ export default function useFetchPaises() {
             }
         };
 
-        fetchPaises();
+        fetchAlimentos();
     }, []);
-
     return { comidas, errorc };
 }

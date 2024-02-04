@@ -6,6 +6,7 @@ export default function FormRegistroComida() {
     const { comidas, errorc } = useComidas();
     const data = localStorage.getItem("userData")
     const { error, sendRegisterComida, validateForm } = useRegisterComidaForm()
+
     const handleSubmitRegistroComida = (event) => {
         event.preventDefault();
         const fields = new window.FormData(event.target)
@@ -16,7 +17,6 @@ export default function FormRegistroComida() {
             "cantidad": cantidad ? cantidad : NaN,
             "fecha": fields.get("fechaConsumo")
         }
-        console.log(plato)
         if (validateForm(plato)) {
             sendRegisterComida(plato)
         }
