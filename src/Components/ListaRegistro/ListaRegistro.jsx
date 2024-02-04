@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import useComidas from '../../hooks/useComidas'
 const ENDPOINT_IMAGES = `https://calcount.develotion.com/imgs/`;
 
+//TODO: SEPARAR LA LOGICA EN OTRO HOOK Y COMPONENTES...
 export default function ListaRegistro() {
     const { comidas, errorc } = useComidas();
     const [registros, setRegistros] = useState([]);
