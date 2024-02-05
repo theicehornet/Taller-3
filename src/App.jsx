@@ -12,9 +12,9 @@ function App() {
       <>
           <Header />
           <Routes>
-              <Route path='/Register' element={<FormRegister />} />
-              <Route path='/login' element={<FormLogin />} />
-              <Route path='/' element={<FormRegistroComida />} />
+              <Route path='/RegistroUsuario' element={<FormRegister />} />
+              <Route path='/InicioSession' element={<FormLogin />} />
+              <Route path='/RegistrarComida' element={<FormRegistroComida />} />
               <Route path='/RegistrosComidas' element={<ListaRegistro/>} />
           </Routes>
       </>
