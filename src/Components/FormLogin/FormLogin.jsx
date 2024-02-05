@@ -14,6 +14,7 @@ export default function FormLogin() {
             sendLogin(data);
         }
     }
+    console.log("render")
     return (
         <>
             <h1>Bienvenido de vuelta</h1>

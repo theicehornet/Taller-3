@@ -39,19 +39,19 @@ function SessionNoActiva({ fun } ) {
 
 
 export default function NavInformation() {
-    const [userData, setUserData] = useState(localStorage.getItem("userData"))
+    const [data, setData] = useState(localStorage.getItem("userData"));
     const handleClickCerrarSession = () => {
-        localStorage.setItem("userData", '')
-        setUserData('');
+        localStorage.setItem("userData", null)
+        setData(null)
     }
     const handleClickRegistroSession = () => {
-        localStorage.setItem("userData", 'Registro')
-        setUserData('Registro');
+        localStorage.setItem("userData", JSON.stringify({ "apiKey": "a5c61edd5c386893f9af3ed2cb669eb0", "id": 1161, "caloriasDiarias": 2000 }))
+        setData(localStorage.getItem("userData"))
     }
     return (
         <>
             {
-                userData ?
+                data ?
                     <SessionActiva fun={handleClickCerrarSession} />
                     :
                     <SessionNoActiva fun={handleClickRegistroSession} />

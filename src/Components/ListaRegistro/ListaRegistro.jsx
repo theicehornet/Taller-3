@@ -18,13 +18,13 @@ export default function ListaRegistro() {
     const [error, setError] = useState();
     const [registrosMostrar, setRegistrosMostrar] = useState();
     const userData = localStorage.getItem("userData");
+
     const getMostrarRegistros = useMemo(() => {
         return async () => {
             try {
-                const regis = await fetchRegistros({ userData });
-                const alimentos = await fetchAlimentos({userData});
+                const regis = await fetchRegistros(JSON.parse(userData));
+                const alimentos = await fetchAlimentos(JSON.parse(userData));
                 const RegistroMostrarMapped = [];
-
                 regis.forEach(registro => {
                     const comida = alimentos.find(comida => comida.id === registro.idAlimento);
                     if (comida) {
@@ -50,9 +50,8 @@ export default function ListaRegistro() {
 
     }, [userData]);
 
-    useEffect(() => { getMostrarRegistros(); }, [registrosMostrar, getMostrarRegistros])
-
-    useEffect(() => { console.log('holappau') }, [getMostrarRegistros])
+    useEffect(() => { getMostrarRegistros(); }, [getMostrarRegistros])
+    
     return (
         <>
             <h1>Estos son sus registros hasta el momento</h1>

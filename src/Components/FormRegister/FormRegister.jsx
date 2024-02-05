@@ -19,7 +19,7 @@ export default function FormRegister() {
         }
     }
 
-
+    console.log("render")
     return (
         <>
             <h1>Registro</h1>
