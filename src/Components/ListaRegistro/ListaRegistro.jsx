@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState,useContext  } from "react"
 import fetchAlimentos from '../../Services/comidas'
 import fetchRegistros from '../../Services/registros'
 import { UserContext } from "../../Context/user";
+import './listaRegistros.css'
+
 
 const ENDPOINT_IMAGES = `https://calcount.develotion.com/imgs/`;
 
@@ -63,8 +65,8 @@ export default function ListaRegistro() {
                 <option value="0">Todo el registro</option>
             </select>
             {
-                user.apiKey ? 
-                    (<ul>
+                user.apiKey ?
+                    (<ul className="lista-registros">
                     {
                         registrosMostrar ?
                             registrosMostrar.map(registro => (

@@ -4,9 +4,7 @@ export default function Nav() {
     return (
         <>
             <nav>
-                <ul>
-                    <NavInformation/>
-                </ul>
+                <NavInformation/>
             </nav>
         </>
     );

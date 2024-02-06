@@ -6,21 +6,25 @@ function SessionActiva({ fun } ) {
 
     return (
         <>
-            <li>
-                <Link to={"/AnalisisComidas"}>Analisis</Link>
-            </li>
-            <li>
-                <Link to={"/InformeComidas"}>Informe</Link>
-            </li>
-            <li>
-                <Link to={"/RegistrosComidas"}>Listado de Registros</Link>
-            </li>
-            <li>
-                <Link to={"/RegistrarComida"}>Agregar Registros</Link>
-            </li>
-            <li>
-                <a onClick={fun}><p>Cerrar Session</p></a>
-            </li>
+            <ul>
+                <li>
+                    <Link to={"/AnalisisComidas"}>Analisis</Link>
+                </li>
+                <li>
+                    <Link to={"/InformeComidas"}>Informe</Link>
+                </li>
+                <li>
+                    <Link to={"/RegistrosComidas"}>Listado de Registros</Link>
+                </li>
+                <li>
+                    <Link to={"/RegistrarComida"}>Agregar Registros</Link>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a onClick={fun}>Cerrar Session</a>
+                </li>
+            </ul>
         </>
     )
 }
@@ -28,14 +32,14 @@ function SessionActiva({ fun } ) {
 function SessionNoActiva({ fun } ) {
 
     return (
-        <>
+        <ul>
             <li>
                 <Link to={"/InicioSession"} onClick={fun}>Iniciar Session</Link>
             </li>
             <li>
                 <Link to={"/RegistroUsuario"}>Registrarse</Link>
             </li>
-        </>
+        </ul>
     )
 }
 
