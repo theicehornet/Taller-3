@@ -1,21 +1,22 @@
 import { useContext } from "react";
 import { UserContext } from "../../../../Context/user";
+import { Link } from "react-router-dom";
 
 function SessionActiva({ fun } ) {
 
     return (
         <>
             <li>
-                <a ><p>Analisis</p></a>
+                <Link to={"/AnalisisComidas"}>Analisis</Link>
             </li>
             <li>
-                <a ><p>Informe</p></a>
+                <Link to={"/InformeComidas"}>Informe</Link>
             </li>
             <li>
-                <a ><p>Listado de Registros</p></a>
+                <Link to={"/RegistrosComidas"}>Listado de Registros</Link>
             </li>
             <li>
-                <a ><p>Agregar Registros</p></a>
+                <Link to={"/RegistrarComida"}>Agregar Registros</Link>
             </li>
             <li>
                 <a onClick={fun}><p>Cerrar Session</p></a>
@@ -29,10 +30,10 @@ function SessionNoActiva({ fun } ) {
     return (
         <>
             <li>
-                <a onClick={fun }><p>Iniciar Session</p></a>
+                <Link to={"/InicioSession"} onClick={fun}>Iniciar Session</Link>
             </li>
             <li>
-                <a onClick={fun}><p>Registrarse</p></a>
+                <Link to={"/RegistroUsuario"}>Registrarse</Link>
             </li>
         </>
     )
@@ -42,7 +43,8 @@ function SessionNoActiva({ fun } ) {
 export default function NavInformation() {
     const { user, setUser } = useContext(UserContext)
     const handleClickCerrarSession = () => {
-        localStorage.setItem("userData", { apiKey: '', id: 0, caloriasDiarias: 0 })
+        const dataString = JSON.stringify({ apiKey: '', id: 0, caloriasDiarias: 0 })
+        localStorage.setItem("userData", dataString)
         setUser({ apiKey: '', id: 0, caloriasDiarias: 0 })
         console.log("cerrarsession")
     }

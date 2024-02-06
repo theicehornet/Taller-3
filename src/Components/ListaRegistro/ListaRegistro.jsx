@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState  } from "react"
+import { useEffect, useMemo, useState,useContext  } from "react"
 import fetchAlimentos from '../../Services/comidas'
 import fetchRegistros from '../../Services/registros'
+import { UserContext } from "../../Context/user";
 
 const ENDPOINT_IMAGES = `https://calcount.develotion.com/imgs/`;
 
@@ -17,13 +18,13 @@ function UrlImage(idimage) {
 export default function ListaRegistro() {
     const [error, setError] = useState();
     const [registrosMostrar, setRegistrosMostrar] = useState();
-    const userData = localStorage.getItem("userData");
+    const { user } = useContext(UserContext)
 
     const getMostrarRegistros = useMemo(() => {
         return async () => {
             try {
-                const regis = await fetchRegistros(JSON.parse(userData));
-                const alimentos = await fetchAlimentos(JSON.parse(userData));
+                const regis = await fetchRegistros(user);
+                const alimentos = await fetchAlimentos(user);
                 const RegistroMostrarMapped = [];
                 regis.forEach(registro => {
                     const comida = alimentos.find(comida => comida.id === registro.idAlimento);
@@ -43,30 +44,26 @@ export default function ListaRegistro() {
                 });
                 setRegistrosMostrar(RegistroMostrarMapped);
             } catch (err) {
-                console.log(err);
-                setError(err);
+                setError(err.message);
             }
         }
 
-    }, [userData]);
+    }, [user]);
 
     useEffect(() => { getMostrarRegistros(); }, [getMostrarRegistros])
     
     return (
         <>
             <h1>Estos son sus registros hasta el momento</h1>
-            <form>
-                <label htmlFor="filtrarRegistro">Filtre sus registros:</label>
-                <select id="filtrarRegistro" name="filtrarRegistro">
-                    <option value="0">Ingresé una opción</option>
-                    <option value="1">Ultima Semana</option>
-                    <option value="2">Ultimo mes</option>
-                    <option value="0">Todo el registro</option>
-                </select>
-                <button>Buscar</button>
-            </form>
+            <label htmlFor="filtrarRegistro">Filtre sus registros:</label>
+            <select id="filtrarRegistro" name="filtrarRegistro">
+                <option value="0">Ingresé una opción</option>
+                <option value="1">Ultima Semana</option>
+                <option value="2">Ultimo mes</option>
+                <option value="0">Todo el registro</option>
+            </select>
             {
-                error ? <p>errorsillo jiji</p> :
+                user.apiKey ? 
                     (<ul>
                     {
                         registrosMostrar ?
@@ -81,8 +78,9 @@ export default function ListaRegistro() {
                             ))
                             :(<li><p>Cargando ...</p></li>)
                     }
-                    </ul>)
-                }
+                    </ul>) : <p>Usted no se encuentra logueado.</p>
+            }
+            {error && <p>{error}</p>}
         </>
     )
 }

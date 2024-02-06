@@ -1,24 +1,25 @@
 import SelectComidas from "./SelectComidas/SelectComidas";
 import useRegisterComidaForm from '../../hooks/useRegisterComidaForm'
 import fetchAlimentos from '../../Services/Comidas'
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
+import { UserContext } from "../../Context/user";
 
 export default function FormRegistroComida() {
     const [comidas, setComidas] = useState([])
-    const [errorComidas, setErrorComidas] = useState('')
-    const [dataUser, setDataUser] = useState(JSON.parse(localStorage.getItem("userData")))
-    const { error, sendRegisterComida, validateForm } = useRegisterComidaForm()
+    const [errorComidas, setErrorComidas] = useState(null)
+    const { user } = useContext(UserContext)
+    const { error, sendRegisterComida, validateForm, registroEnviado } = useRegisterComidaForm()
 
     const alimentos = useCallback(async () => {
         
         try {
-            const alimentos = await fetchAlimentos(dataUser);
+            const alimentos = await fetchAlimentos(user);
             setComidas(alimentos);
         }
         catch (err) {
-                setErrorComidas(err);
+                setErrorComidas(err.message);
         }
-    }, [dataUser])
+    }, [user])
 
     useEffect(() => {
         alimentos();
@@ -28,23 +29,21 @@ export default function FormRegistroComida() {
     const handleSubmitRegistroComida = (event) => {
         event.preventDefault();
         const fields = new window.FormData(event.target);
-        const cantidad = comidas.find(comida => comida.id === fields.get("idComida").porcion)
         const plato = {
             "idAlimento": parseInt(fields.get("idComida")),
-            "idUsuario": parseInt(fields.get("iduser")),
-            "cantidad": cantidad ? cantidad : NaN,
+            "cantidad": 450,
             "fecha": fields.get("fechaConsumo")
         }
         if (validateForm(plato)) {
             sendRegisterComida(plato)
+
         }
     }
-
-    console.log("render")
+    
     return (
         <>
             {
-                dataUser ?
+                user.apiKey ?
                     <>
                         <h1>Registro de Comidas</h1>
                         <p>Llene el formulario para llevar un registro de sus comidas</p>
@@ -53,8 +52,6 @@ export default function FormRegistroComida() {
                             {
                                 <SelectComidas comidas={comidas} />
                             }
-                            <input type="hidden" id="iduser" name="iduser" value={dataUser.id} />
-
                             <label htmlFor="fechaConsumo">Ingrese la fecha del registro</label>
                             <input type="date" id="fechaConsumo" name="fechaConsumo" />
 
@@ -65,7 +62,13 @@ export default function FormRegistroComida() {
                     <p>Usted no se encuentra logueado</p>
             }
             {
-                error ? <p>{error}</p>:<></>
+                registroEnviado && <p>Se ha enviado el registro</p>
+            }
+            {
+                error && <p>{error}</p>
+            }
+            {
+                errorComidas && <p>{errorComidas}</p>
             }
         </>
     )
