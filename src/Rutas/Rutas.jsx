@@ -9,7 +9,7 @@ import ListaRegistro from '../Components/ListaRegistro'
 export default function Rutas() {
     return (
     <Routes>
-        <Route path='/' element={<h1>Hola papus</h1>} />
+        <Route path='/' element={<h1>Como tan muchachos?</h1>} />
         <Route path='/RegistroUsuario' element={<FormRegister />} />
         <Route path='/InicioSession' element={<FormLogin />} />
         <Route path='/RegistrarComida' element={<FormRegistroComida />} />
