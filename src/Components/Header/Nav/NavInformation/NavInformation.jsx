@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../../../../Context/user";
 
 function SessionActiva({ fun } ) {
 
@@ -39,19 +40,23 @@ function SessionNoActiva({ fun } ) {
 
 
 export default function NavInformation() {
-    const [data, setData] = useState(localStorage.getItem("userData"));
+    const { user, setUser } = useContext(UserContext)
     const handleClickCerrarSession = () => {
-        localStorage.setItem("userData", null)
-        setData(null)
+        localStorage.setItem("userData", { apiKey: '', id: 0, caloriasDiarias: 0 })
+        setUser({ apiKey: '', id: 0, caloriasDiarias: 0 })
+        console.log("cerrarsession")
     }
     const handleClickRegistroSession = () => {
         localStorage.setItem("userData", JSON.stringify({ "apiKey": "a5c61edd5c386893f9af3ed2cb669eb0", "id": 1161, "caloriasDiarias": 2000 }))
-        setData(localStorage.getItem("userData"))
+        setUser(JSON.parse(localStorage.getItem("userData")))
+        console.log("abrir")
     }
+
+    console.log(user)
     return (
         <>
             {
-                data ?
+                user.apiKey ? 
                     <SessionActiva fun={handleClickCerrarSession} />
                     :
                     <SessionNoActiva fun={handleClickRegistroSession} />
