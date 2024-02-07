@@ -1,59 +1,15 @@
-import { useEffect, useMemo, useState,useContext  } from "react"
-import fetchAlimentos from '../../Services/comidas'
-import fetchRegistros from '../../Services/registros'
-import { UserContext } from "../../Context/user";
+import { useListaRegistro } from '../../hooks/useMostrarRegistros';
 import './listaRegistros.css'
 
-
 const ENDPOINT_IMAGES = `https://calcount.develotion.com/imgs/`;
-
-
-
-//TODO: SEPARAR LA LOGICA EN OTRO HOOK Y COMPONENTES...
-
 
 function UrlImage(idimage) {
     return ENDPOINT_IMAGES + idimage + ".png";
 }
 
-
 export default function ListaRegistro() {
-    const [error, setError] = useState();
-    const [registrosMostrar, setRegistrosMostrar] = useState();
-    const { user } = useContext(UserContext)
-
-    const getMostrarRegistros = useMemo(() => {
-        return async () => {
-            try {
-                const regis = await fetchRegistros(user);
-                const alimentos = await fetchAlimentos(user);
-                const RegistroMostrarMapped = [];
-                regis.forEach(registro => {
-                    const comida = alimentos.find(comida => comida.id === registro.idAlimento);
-                    if (comida) {
-                        const objret = {
-                            "id": registro.id,
-                            "idAlimento": registro.idAlimento,
-                            "idUsuario": registro.idUsuario,
-                            "cantidad": registro.cantidad,
-                            "fecha": registro.fecha,
-                            "nombreAlimento": comida.nombre,
-                            "unidadAlimento": comida.porcion.charAt(comida.porcion.length - 1),
-                            "idImagenAlimento": comida.imagen
-                        };
-                        RegistroMostrarMapped.push(objret);
-                    }
-                });
-                setRegistrosMostrar(RegistroMostrarMapped);
-            } catch (err) {
-                setError(err.message);
-            }
-        }
-
-    }, [user]);
-
-    useEffect(() => { getMostrarRegistros(); }, [getMostrarRegistros])
     
+    const { user, error, registrosMostrar } = useListaRegistro();
     return (
         <>
             <h1>Estos son sus registros hasta el momento</h1>
