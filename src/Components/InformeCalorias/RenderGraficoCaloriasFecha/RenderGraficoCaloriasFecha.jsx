@@ -27,16 +27,21 @@ const RenderGraficoCaloriasFecha = ({ registros }) => {
             }
         }
         for (let i = 1; i < 7; i++) {
+            dia -= 1;
             if (dia - i == 0 && mes > 1) {
 
                 if (mes == 3) {
-                    fechasPermitidas.push(anio + "-" + (mes < 10 ? "0" : "") + (mes - 1) + "-" + "28")
+                    dia = 28
+                    mes = 2
+                    fechasPermitidas.push(anio + "-" + "0" + mes + "-" + dia)
                 }
                 else if (mesescon30.includes(mes)) {
-                    fechasPermitidas.push(anio + "-" + (mes < 10 ? "0" : "") + (mes - 1) + "-" + "30")
+                    dia = 30
+                    fechasPermitidas.push(anio + "-" + (mes < 10 ? "0" : "") + (mes - 1) + "-" + dia)
                 }
                 else if (mesescon31.includes(mes)) {
-                    fechasPermitidas.push(anio + "-" + (mes < 10 ? "0" : "") + (mes - 1) + "-" + "31")
+                    dia = 31
+                    fechasPermitidas.push(anio + "-" + (mes < 10 ? "0" : "") + (mes - 1) + "-" + dia)
                 }
                 mes = mes - 1;
             }
@@ -46,8 +51,16 @@ const RenderGraficoCaloriasFecha = ({ registros }) => {
                 dia = 31;
                 fechasPermitidas.push(anio.toString() + "-" + (mes < 10 ? "0" : "") + mes.toString() + "-" + (dia < 10 ? "0" : "") + dia.toString())
             }
-            fechasPermitidas.push(anio.toString() + "-" + (mes < 10 ? "0" : "") + mes.toString() + "-" + (dia < 10 ? "0" : "") + (dia - i).toString())
+            console.log(dia);
+            if (dia < 10 && mes < 10) {
+                fechasPermitidas.push(`${anio}-0${mes}-0${dia}`)
+            } else if (dia < 10 && mes >= 10) {
+                fechasPermitidas.push(anio.toString() + "-" + mes + "-" + "0" + dia)
+            } else if (mes < 10 && dia > 10) {
+                fechasPermitidas.push(anio.toString() + "-" + "0" + mes + "-" + dia)
+            }
         }
+        console.log(fechasPermitidas);
         fechasPermitidas.forEach(fecha => {
             datosSemana.push({ fecha: fecha, calorias: 0 })
         })

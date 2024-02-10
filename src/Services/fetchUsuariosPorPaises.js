@@ -1,19 +1,4 @@
-/*{
-"codigo": 200,
-"paises": [
-        {
-            "id": 1,
-            "name": "Afghanistan",
-            "cantidadDeUsuarios": 10
-        },
-        {
-            "id": 4,
-            "name": "Algeria",
-            "cantidadDeUsuarios": 2
-        }
-        ]
-  }
-*/
+
 
 export default async function fetchUsuariosPorPais(userData) {
     try {
