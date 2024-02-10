@@ -18,8 +18,6 @@ export default function FormRegister() {
             sendRegister(data);
         }
     }
-
-    console.log("render")
     return (
         <>
             <h1>Registro</h1>

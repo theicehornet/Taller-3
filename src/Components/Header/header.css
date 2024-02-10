@@ -11,3 +11,9 @@ nav ul{
     justify-content:center;
     gap:20px;
 }
+
+.List-No-Session{
+    width:100%;
+    display:flex;
+    justify-content:end;
+}

@@ -1,31 +1,9 @@
 import SelectComidas from "./SelectComidas/SelectComidas";
 import useRegisterComidaForm from '../../hooks/useRegisterComidaForm'
-import fetchAlimentos from '../../Services/Comidas'
-import { useCallback, useEffect, useState, useContext } from "react";
-import { UserContext } from "../../Context/user";
 
 export default function FormRegistroComida() {
-    const [comidas, setComidas] = useState([])
-    const [errorComidas, setErrorComidas] = useState(null)
-    const { user } = useContext(UserContext)
-    const { error, sendRegisterComida, validateForm, registroEnviado } = useRegisterComidaForm()
-
-    const alimentos = useCallback(async () => {
-        
-        try {
-            const alimentos = await fetchAlimentos(user);
-            setComidas(alimentos);
-        }
-        catch (err) {
-                setErrorComidas(err.message);
-        }
-    }, [user])
-
-    useEffect(() => {
-        alimentos();
-    }, [alimentos])
-
-
+    const { error, sendRegisterComida, validateForm, registroEnviado, comidas, errorComidas, user } = useRegisterComidaForm()
+    
     const handleSubmitRegistroComida = (event) => {
         event.preventDefault();
         const fields = new window.FormData(event.target);
@@ -36,14 +14,13 @@ export default function FormRegistroComida() {
         }
         if (validateForm(plato)) {
             sendRegisterComida(plato)
-
         }
     }
-    
+
     return (
         <>
             {
-                user.apiKey ?
+                user != undefined ?
                     <>
                         <h1>Registro de Comidas</h1>
                         <p>Llene el formulario para llevar un registro de sus comidas</p>

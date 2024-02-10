@@ -6,7 +6,7 @@ function SessionActiva({ fun } ) {
 
     return (
         <>
-            <ul>
+            <ul className="List-Session">
                 <li>
                     <Link to={"/AnalisisComidas"}>Analisis</Link>
                 </li>
@@ -19,10 +19,13 @@ function SessionActiva({ fun } ) {
                 <li>
                     <Link to={"/RegistrarComida"}>Agregar Registros</Link>
                 </li>
+                <li>
+                    <Link to={"/"}>Inicio</Link>
+                </li>
             </ul>
             <ul>
                 <li>
-                    <a onClick={fun}>Cerrar Session</a>
+                    <Link to={"/"} onClick={fun}>Cerrar Session</Link>
                 </li>
             </ul>
         </>
@@ -32,7 +35,7 @@ function SessionActiva({ fun } ) {
 function SessionNoActiva({ fun } ) {
 
     return (
-        <ul>
+        <ul className="List-No-Session">
             <li>
                 <Link to={"/InicioSession"} onClick={fun}>Iniciar Session</Link>
             </li>
@@ -45,24 +48,21 @@ function SessionNoActiva({ fun } ) {
 
 
 export default function NavInformation() {
-    const { user, setUser } = useContext(UserContext)
+    const { user, LoggedOut, LoggedIn } = useContext(UserContext)
+
     const handleClickCerrarSession = () => {
-        const dataString = JSON.stringify({ apiKey: '', id: 0, caloriasDiarias: 0 })
-        localStorage.setItem("userData", dataString)
-        setUser({ apiKey: '', id: 0, caloriasDiarias: 0 })
-        console.log("cerrarsession")
+        LoggedOut()
     }
+
     const handleClickRegistroSession = () => {
-        localStorage.setItem("userData", JSON.stringify({ "apiKey": "a5c61edd5c386893f9af3ed2cb669eb0", "id": 1161, "caloriasDiarias": 2000 }))
-        setUser(JSON.parse(localStorage.getItem("userData")))
-        console.log("abrir")
+        LoggedIn()
     }
 
     console.log(user)
     return (
         <>
             {
-                user.apiKey ? 
+                user != undefined ? 
                     <SessionActiva fun={handleClickCerrarSession} />
                     :
                     <SessionNoActiva fun={handleClickRegistroSession} />

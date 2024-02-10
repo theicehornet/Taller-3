@@ -4,7 +4,7 @@ import fetchRegistros from '../Services/registros'
 import { UserContext } from "../Context/user";
 export function useListaRegistro() {
     const [error, setError] = useState();
-    const [registrosMostrar, setRegistrosMostrar] = useState();
+    const [registrosMostrar, setRegistrosMostrar] = useState([]);
     const { user } = useContext(UserContext)
 
     const getMostrarRegistros = useMemo(() => {
@@ -22,13 +22,16 @@ export function useListaRegistro() {
                             "idUsuario": registro.idUsuario,
                             "cantidad": registro.cantidad,
                             "fecha": registro.fecha,
+                            "calorias": comida.calorias,
                             "nombreAlimento": comida.nombre,
+                            "porcion": comida.porcion,
                             "unidadAlimento": comida.porcion.charAt(comida.porcion.length - 1),
                             "idImagenAlimento": comida.imagen
                         };
                         RegistroMostrarMapped.push(objret);
                     }
                 });
+                
                 setRegistrosMostrar(RegistroMostrarMapped);
             } catch (err) {
                 setError(err.message);
@@ -39,5 +42,5 @@ export function useListaRegistro() {
 
     useEffect(() => { getMostrarRegistros(); }, [getMostrarRegistros])
 
-    return { user, error, registrosMostrar }
+    return { user, error, registrosMostrar, setRegistrosMostrar, getMostrarRegistros, setError }
 }

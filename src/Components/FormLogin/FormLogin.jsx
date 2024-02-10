@@ -1,4 +1,5 @@
 import { useLoginForm } from '../../hooks/useLoginForm'
+import './FormLogin.css'
 
 export default function FormLogin() {
     const { error, sendLogin, validateForm } = useLoginForm();
@@ -19,11 +20,15 @@ export default function FormLogin() {
         <>
             <h1>Bienvenido de vuelta</h1>
             <p>Agradecemos su preferencia con nosotros</p>
-            <form method="POST" onSubmit={handleSubmitForm}>
-                <label htmlFor="userName">Ingrese su usuario:</label>
-                <input id="userName" name="userName" placeholder="Luis" />
-                <label htmlFor="userPassw">Ingrese su contraseña:</label>
+            <form method="POST" onSubmit={handleSubmitForm} className="LoginForm">
+                <div>
+                <label htmlFor="userName">Ingrese su usuario: </label>
+                    <input id="userName" name="userName" placeholder="Luis" />
+                </div>
+                <div>
+                <label htmlFor="userPassw">Ingrese su contraseña: </label>
                 <input id="userPassw" type="password" placeholder="Alcachofa" name="passw" />
+            </div>
                 <button type="submit" id="btn_login" >Loguearse</button>
             </form>
             {

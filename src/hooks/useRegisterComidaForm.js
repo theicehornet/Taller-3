@@ -1,16 +1,14 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect, useCallback } from 'react';
 import { UserContext } from "../Context/user";
+import fetchAlimentos from '../Services/Comidas';
+
 export default function useRegisterComidaForm() {
+    const [comidas, setComidas] = useState([])
+    const [errorComidas, setErrorComidas] = useState(null)
     const [error, setError] = useState(null);
     const [registroEnviado, setRegistroEnviado] = useState(false);
     const { user } = useContext(UserContext)
     const sendRegisterComida = async ({ idAlimento, cantidad, fecha }) => {
-        console.log(user.id)
-        console.log(user.apiKey)
-        console.log(user)
-        console.log(idAlimento)
-        console.log(cantidad)
-        console.log(typeof fecha)
         try {
             const response = await fetch("https://calcount.develotion.com/registros.php", {
                 method: "POST",
@@ -29,8 +27,6 @@ export default function useRegisterComidaForm() {
             if (!response.ok) {
                 throw new Error("Hubo un error")
             }
-            console.log(response);
-            console.log(await response.json())
             setError('')
             setRegistroEnviado(true)
         } catch (err) {
@@ -38,7 +34,7 @@ export default function useRegisterComidaForm() {
             setError(err.message);
         }
     }
-
+    
     const validateForm = ({ idAlimento, cantidad, fecha }) => {
         const fechapartida = fecha.split("-");
         const d = new Date();
@@ -47,7 +43,7 @@ export default function useRegisterComidaForm() {
             setError("Seleccione una fecha")
             return false;
         }
-        if (fechapartida[2] > d.getDate() && fechapartida[2] >= d.getMonth()+1) {
+        if (fechapartida[2] > d.getDate() && fechapartida[1] >= d.getMonth()+1) {
             setError("No puede seleccionar una fecha posterior a la de hoy");
             return false;
         }
@@ -62,6 +58,21 @@ export default function useRegisterComidaForm() {
         return true;
     }
 
+    const alimentos = useCallback(async () => {
 
-    return { error, sendRegisterComida, validateForm, registroEnviado }
+        try {
+            const alimentos = await fetchAlimentos(user);
+            setComidas(alimentos);
+        }
+        catch (err) {
+            setErrorComidas(err.message);
+        }
+    }, [user])
+
+    useEffect(() => {
+        alimentos();
+    }, [alimentos])
+
+
+    return { error, sendRegisterComida, validateForm, registroEnviado, comidas, errorComidas,user }
 }
