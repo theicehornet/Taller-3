@@ -13,7 +13,7 @@ export default function CaloriasDiarias({ registrosMostrar, caloriasDiarias }) {
             var mes = fechaActual.getMonth() + 1; 
             var anio = fechaActual.getFullYear();
             if (anio == regisFecha[0] && dia == regisFecha[2] && mes == regisFecha[1]) {
-                calorias += (registro.cantidad * registro.calorias) / parseInt(registro.porcion);
+                calorias += registro.caloriasConsumida;
             }
             setReload(true)
         })

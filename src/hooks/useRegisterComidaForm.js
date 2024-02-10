@@ -43,7 +43,7 @@ export default function useRegisterComidaForm() {
             setError("Seleccione una fecha")
             return false;
         }
-        if (fechapartida[2] > d.getDate() && fechapartida[1] >= d.getMonth()+1) {
+        if (fechapartida[2] > d.getDate() && fechapartida[1] >= d.getMonth() + 1 && d.getFullYear() >= fechapartida[0]) {
             setError("No puede seleccionar una fecha posterior a la de hoy");
             return false;
         }

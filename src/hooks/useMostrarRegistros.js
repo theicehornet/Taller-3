@@ -22,6 +22,7 @@ export function useListaRegistro() {
                             "idUsuario": registro.idUsuario,
                             "cantidad": registro.cantidad,
                             "fecha": registro.fecha,
+                            "caloriasConsumida": (registro.cantidad * comida.calorias) / parseInt(comida.porcion),
                             "calorias": comida.calorias,
                             "nombreAlimento": comida.nombre,
                             "porcion": comida.porcion,
