@@ -1,20 +1,22 @@
 import { Route, Routes } from 'react-router-dom'
 import InformeCalorias from '../Components/InformeCalorias/InformeCalorias'
 import AnalisisComida from '../Components/AnalisisComida/AnalisisComida'
-import FormRegister from '../Components/FormRegister/FormRegister'
-import FormLogin from '../Components/FormLogin'
 import FormRegistroComida from '../Components/FormRegistroComida'
 import ListaRegistro from '../Components/ListaRegistro'
+import SignIn from '../Components/SingIn/SignIn'
+import Header from '../Components/Header'
+import SignUp from '../Components/SingUp/SignUp'
+
 
 export default function Rutas() {
     return (
-    <Routes>
-        <Route path='/' element={<h1>Como tan muchachos?</h1>} />
-        <Route path='/RegistroUsuario' element={<FormRegister />} />
-        <Route path='/InicioSession' element={<FormLogin />} />
-        <Route path='/RegistrarComida' element={<FormRegistroComida />} />
-        <Route path='/RegistrosComidas' element={<ListaRegistro />} />
-        <Route path='/InformeComidas' element={<InformeCalorias />} />
-        <Route path='/AnalisisComidas' element={<AnalisisComida />} />
+        <Routes>
+            <Route path='/' element={<><Header /><h1>Hola papus</h1></>} />
+            <Route path='/RegistroUsuario' element={<SignUp />} />
+            <Route path='/InicioSession' element={<SignIn />} />
+            <Route path='/RegistrarComida' element={<><Header/><FormRegistroComida /></>} />
+            <Route path='/RegistrosComidas' element={<><Header /><ListaRegistro /></>} />
+            <Route path='/InformeComidas' element={<><Header /><InformeCalorias /></>} />
+            <Route path='/AnalisisComidas' element={<><Header /><AnalisisComida /></>} />
     </Routes>)
 }

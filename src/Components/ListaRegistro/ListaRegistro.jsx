@@ -29,15 +29,15 @@ export default function ListaRegistro() {
             setError(err.message)
         }
     }
+    console.log(registrosMostrar)
     return (
         <>
             <h1>Estos son sus registros hasta el momento</h1>
             <label htmlFor="filtrarRegistro">Filtre sus registros:</label>
             <select ref={selectFiltro} onChange={handleFiltroChange} id="filtrarRegistro" name="filtrarRegistro">
-                <option value="0">Ingresé una opción</option>
+                <option value="0">Todos los registros</option>
                 <option value="1">Ultima Semana</option>
                 <option value="2">Ultimo mes</option>
-                <option value="0">Todo el registro</option>
             </select>
             {
                 user != undefined ? registrosMostrar.length == 0 ? <p>Por ahora no tiene ningun registro</p> :

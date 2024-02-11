@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { LoggedIn } from '../app/slices/userSlice';
+
 export function useLoginForm() {
     const [error, setError] = useState(null);
-
+    const dispatcher = useDispatch()
     const sendLogin = async ({ userName, passw }) =>
     {
         try {
@@ -15,8 +18,12 @@ export function useLoginForm() {
                     "password": passw,
                 })
             });
+            if (!response.ok) {
+                throw new Error({ message:"Hubo un problema al enviar sus datos"})
+            }
             const data = await response.json();
-            localStorage.setItem("userData", JSON.stringify(data));
+            dispatcher(LoggedIn(data))
+            setError(null)
         } catch (err) {
             setError(err.message);
         }
@@ -31,8 +38,8 @@ export function useLoginForm() {
             setError("La contraseña no puede estar vacía");
             return false;
         }
-        if (passw.length !== 8) {
-            setError("La contraseña debe tener ocho caracteres");
+        if (passw.length < 3) {
+            setError("La contraseña debe tener al menos tres caracteres");
             return false;
         }
         return true;

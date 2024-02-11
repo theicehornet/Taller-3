@@ -1,6 +1,7 @@
-import { useContext } from "react";
-import { UserContext } from "../../../../Context/user";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { LoggedIn, LoggedOut } from '../../../../app/slices/userSlice'
+
 
 function SessionActiva({ fun } ) {
 
@@ -32,12 +33,12 @@ function SessionActiva({ fun } ) {
     )
 }
 
-function SessionNoActiva({ fun } ) {
+function SessionNoActiva() {
 
     return (
         <ul className="List-No-Session">
             <li>
-                <Link to={"/InicioSession"} onClick={fun}>Iniciar Session</Link>
+                <Link to={"/InicioSession"} >Iniciar Session</Link>
             </li>
             <li>
                 <Link to={"/RegistroUsuario"}>Registrarse</Link>
@@ -48,24 +49,19 @@ function SessionNoActiva({ fun } ) {
 
 
 export default function NavInformation() {
-    const { user, LoggedOut, LoggedIn } = useContext(UserContext)
+    const userSession = useSelector((store) => store.userSlice.userLogged)
+    const dispatcher = useDispatch()
 
     const handleClickCerrarSession = () => {
-        LoggedOut()
+        dispatcher(LoggedOut())
     }
-
-    const handleClickRegistroSession = () => {
-        LoggedIn()
-    }
-
-    console.log(user)
     return (
         <>
             {
-                user != undefined ? 
+                userSession != null ? 
                     <SessionActiva fun={handleClickCerrarSession} />
                     :
-                    <SessionNoActiva fun={handleClickRegistroSession} />
+                    <SessionNoActiva/>
             }
         </>
     )
