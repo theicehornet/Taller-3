@@ -29,7 +29,6 @@ export default function ListaRegistro() {
             setError(err.message)
         }
     }
-    console.log(registrosMostrar)
     return (
         <>
             <h1>Estos son sus registros hasta el momento</h1>

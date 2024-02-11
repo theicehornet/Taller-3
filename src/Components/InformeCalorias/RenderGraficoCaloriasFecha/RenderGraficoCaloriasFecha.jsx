@@ -50,15 +50,17 @@ const RenderGraficoCaloriasFecha = ({ registros }) => {
                 anio = anio - 1;
                 dia = 31;
                 fechasPermitidas.push(anio.toString() + "-" + (mes < 10 ? "0" : "") + mes.toString() + "-" + (dia < 10 ? "0" : "") + dia.toString())
+            } else {
+                console.log(dia);
+                if (dia < 10 && mes < 10) {
+                    fechasPermitidas.push(`${anio}-0${mes}-0${dia}`)
+                } else if (dia < 10 && mes >= 10) {
+                    fechasPermitidas.push(anio.toString() + "-" + mes + "-" + "0" + dia)
+                } else if (mes < 10 && dia >= 10) {
+                    fechasPermitidas.push(anio.toString() + "-" + "0" + mes + "-" + dia)
+                }
             }
-            console.log(dia);
-            if (dia < 10 && mes < 10) {
-                fechasPermitidas.push(`${anio}-0${mes}-0${dia}`)
-            } else if (dia < 10 && mes >= 10) {
-                fechasPermitidas.push(anio.toString() + "-" + mes + "-" + "0" + dia)
-            } else if (mes < 10 && dia > 10) {
-                fechasPermitidas.push(anio.toString() + "-" + "0" + mes + "-" + dia)
-            }
+            
         }
         console.log(fechasPermitidas);
         fechasPermitidas.forEach(fecha => {

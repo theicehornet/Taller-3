@@ -35,8 +35,6 @@ export default function useRegisterComidaForm() {
             setError(err.message);
         }
     }
-    console.log(user);
-    console.log(user.apiKey)
     const validateForm = ({ idAlimento, cantidad, fecha }) => {
         const fechapartida = fecha.split("-");
         const d = new Date();
