@@ -1,12 +1,11 @@
-import { useEffect, useMemo, useState, useContext } from "react"
+import { useEffect, useMemo, useState } from "react"
 import fetchAlimentos from '../Services/comidas'
 import fetchRegistros from '../Services/registros'
-import { UserContext } from "../Context/user";
+import { useSelector } from "react-redux";
 export function useListaRegistro() {
     const [error, setError] = useState();
     const [registrosMostrar, setRegistrosMostrar] = useState([]);
-    const { user } = useContext(UserContext)
-
+    const user = useSelector((store) => store.userSlice.userLogged)
     const getMostrarRegistros = useMemo(() => {
         return async () => {
             try {

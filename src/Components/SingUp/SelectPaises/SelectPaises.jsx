@@ -2,7 +2,6 @@
 import fetchPaises from "../../../Services/fetchPaises";
 import {useState,useEffect,useCallback } from 'react'
 
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function SelectPaises() {
-    const [pais, setPais] = React.useState('');
+    const [pais, setPais] = useState('');
 
     const [paises, setPaises] = useState([])
     const [error, setError] = useState('')

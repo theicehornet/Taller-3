@@ -1,8 +1,7 @@
 import geolib from 'geolib'
 import fetchUsuariosPorPais from '../../../Services/fetchUsuariosPorPaises'
 import fetchPaises from '../../../Services/fetchPaises'
-import { useEffect, useCallback, useState, useContext } from 'react'
-import { UserContext } from '../../../Context/user'
+import { useEffect, useCallback, useState } from 'react'
 
 
 
@@ -11,7 +10,6 @@ export default function MapaUsuarios() {
     const [errorPaises, setErrorPaises] = useState('')
     const [usuariosPais, setUsuariosPais] = useState([])
     const [errorUsuariosPais, setErrorUsuariosPais] = useState('')
-    const { user } = useContext(UserContext)
     /*
     const usuariosPorPais = useCallback(async () => {
         try {

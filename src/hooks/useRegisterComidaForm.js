@@ -1,13 +1,14 @@
-import { useState, useContext, useEffect, useCallback } from 'react';
-import { UserContext } from "../Context/user";
+import { useState, useEffect, useCallback } from 'react';
 import fetchAlimentos from '../Services/Comidas';
+import { useSelector } from "react-redux";
 
 export default function useRegisterComidaForm() {
     const [comidas, setComidas] = useState([])
     const [errorComidas, setErrorComidas] = useState(null)
     const [error, setError] = useState(null);
     const [registroEnviado, setRegistroEnviado] = useState(false);
-    const { user } = useContext(UserContext)
+    const user = useSelector((store) => store.userSlice.userLogged)
+
     const sendRegisterComida = async ({ idAlimento, cantidad, fecha }) => {
         try {
             const response = await fetch("https://calcount.develotion.com/registros.php", {
@@ -34,7 +35,8 @@ export default function useRegisterComidaForm() {
             setError(err.message);
         }
     }
-    
+    console.log(user);
+    console.log(user.apiKey)
     const validateForm = ({ idAlimento, cantidad, fecha }) => {
         const fechapartida = fecha.split("-");
         const d = new Date();
@@ -52,7 +54,7 @@ export default function useRegisterComidaForm() {
             return false;
         }
         if (cantidad <= 0) {
-            setError("Hubo un error al escoger un alimento");
+            setError("La cantiadad consumida no puede ser menor o igual a 0");
             return false;
         }
         return true;
@@ -62,6 +64,7 @@ export default function useRegisterComidaForm() {
 
         try {
             const alimentos = await fetchAlimentos(user);
+            alimentos.forEach(alimento => alimento.unidad = alimento.porcion.charAt(alimento.porcion.length - 1))
             setComidas(alimentos);
         }
         catch (err) {
