@@ -6,6 +6,7 @@ import ListaRegistro from '../Components/ListaRegistro'
 import SignIn from '../Components/SingIn/SignIn'
 import Header from '../Components/Header'
 import SignUp from '../Components/SingUp/SignUp'
+import Dashboard from '../Components/Dashboard'
 
 
 export default function Rutas() {
@@ -14,6 +15,7 @@ export default function Rutas() {
             <Route path='/' element={<><Header /><h1>Hola papus</h1></>} />
             <Route path='/RegistroUsuario' element={<SignUp />} />
             <Route path='/InicioSession' element={<SignIn />} />
+            <Route path='/Dashboard' element={<><Header /><Dashboard /></>} />
             <Route path='/RegistrarComida' element={<><Header/><FormRegistroComida /></>} />
             <Route path='/RegistrosComidas' element={<><Header /><ListaRegistro /></>} />
             <Route path='/InformeComidas' element={<><Header /><InformeCalorias /></>} />

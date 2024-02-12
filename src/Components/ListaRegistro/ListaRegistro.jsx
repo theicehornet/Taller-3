@@ -14,18 +14,66 @@ export default function ListaRegistro() {
     const { user, error, registrosMostrar, setRegistrosMostrar, setError } = useListaRegistro();
     const [registrosFiltro, setRegistroFiltro] = useState([]);
     const selectFiltro = useRef();
-    function handleFiltroChange() {
-        const currentFiltro = selectFiltro.current.value;
-        if (currentFiltro == "0") {
+
+    const getFechasPermitidas = (cantDias) => {
+        const d = new Date();
+        let dia = d.getDate();
+        let mes = d.getMonth() + 1;
+        let anio = d.getFullYear();
+        const fechasPermitidas = [];
+        const mesescon30 = [4, 6, 9, 11];
+        const mesescon31 = [1, 3, 5, 7, 8, 10, 12];
+
+        const formatoFecha = (anio, mes, dia) => {
+            return `${anio}-${mes < 10 ? '0' : ''}${mes}-${dia < 10 ? '0' : ''}${dia}`;
+        };
+
+        fechasPermitidas.push(formatoFecha(anio, mes, dia));
+
+        for (let i = 1; i < cantDias; i++) {
+            dia -= 1;
+            if (dia === 0 && mes > 1) {
+                if (mes === 3) {
+                    dia = 28;
+                    mes = 2;
+                } else if (mesescon30.includes(mes)) {
+                    dia = 30;
+                } else if (mesescon31.includes(mes)) {
+                    dia = 31;
+                }
+                mes -= 1;
+                fechasPermitidas.push(formatoFecha(anio, mes, dia));
+            } else if (dia === 0 && mes === 1) {
+                mes = 12;
+                anio -= 1;
+                dia = 31;
+                fechasPermitidas.push(formatoFecha(anio, mes, dia));
+            } else {
+                fechasPermitidas.push(formatoFecha(anio, mes, dia));
+            }
+        }
+        return fechasPermitidas;
+    }
+
+
+    const getRegistrosByFiltro = (filtro) => {
+        if (filtro == "0") {
             setRegistroFiltro(registrosMostrar)
         }
-        else if (currentFiltro == "1") {
-            //TODO FILTRO DE SEMANA
-            console.log("soy de la semana")
+        else if (filtro == "1") {
+            const fechasPermitidas = getFechasPermitidas(7)
+            console.log(fechasPermitidas);
+            setRegistroFiltro(registrosMostrar.filter(registro => fechasPermitidas.includes(registro.fecha)))
         } else {
             //TODO FILTRO DE MES
-            console.log("soy del mes")
+            const fechasPermitidas = getFechasPermitidas(30)
+            setRegistroFiltro(registrosMostrar.filter(registro => fechasPermitidas.includes(registro.fecha)))
         }
+    }
+
+    function handleFiltroChange() {
+        const currentFiltro = selectFiltro.current.value;
+        getRegistrosByFiltro(currentFiltro);
     }
 
     async function eliminarRegistro(event) {
@@ -48,7 +96,7 @@ export default function ListaRegistro() {
     
 
     return (
-        <>
+        <section id="RegistrosAlimenticios">
             <h2>Registros Alimenticios</h2>
             <h3>Estos son sus registros hasta el momento</h3>
             <label htmlFor="filtrarRegistro">Filtre sus registros:</label>
@@ -78,6 +126,6 @@ export default function ListaRegistro() {
                     : <p>Usted no se encuentra logueado.</p>
             }
             {error && <p>{error}</p>}
-        </>
+        </section>
     )
 }

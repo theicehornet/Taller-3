@@ -35,7 +35,7 @@ export default function useRegisterComidaForm() {
             setError(err.message);
         }
     }
-    const validateForm = ({ idAlimento, cantidad, fecha }) => {
+    const validateForm = ({ idAlimento, cantidad, fecha, unidadConsumida }) => {
         const fechapartida = fecha.split("-");
         const d = new Date();
         setRegistroEnviado(false)
@@ -51,8 +51,12 @@ export default function useRegisterComidaForm() {
             setError("Hubo un error al seleccionar un alimento");
             return false;
         }
-        if (cantidad <= 0) {
-            setError("La cantiadad consumida no puede ser menor o igual a 0");
+        if (unidadConsumida !== cantidad.charAt(cantidad.length - 1)) {
+            setError("Debe indicar correctamente la unidad a consumir.")
+            return false;
+        }
+        if (parseInt(cantidad) <= 0) {
+            setError("La cantidad consumida no puede ser menor o igual a 0");
             return false;
         }
         return true;

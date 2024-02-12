@@ -21,6 +21,9 @@ function SessionActiva({ fun } ) {
                     <Link to={"/RegistrarComida"}>Agregar Registros</Link>
                 </li>
                 <li>
+                    <Link to={"/Dashboard"}>Dashboard</Link>
+                </li>
+                <li>
                     <Link to={"/"}>Inicio</Link>
                 </li>
             </ul>
