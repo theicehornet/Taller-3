@@ -30,13 +30,14 @@ export default function InformeCalorias() {
 
     return (
         user != undefined ? <>
-            <h2>Tiempo Restante</h2>
+            <h2>Informes</h2>
+            <h3>Tiempo Restante</h3>
             <TiempoRestante/>
-            <h2>Grafico de cantidades</h2>
+            <h3>Grafico de cantidades</h3>
             <RenderGraficoCantidades data={CantidadVecesConsumidoAlimento()} />
-            <h2>Grafico de Calorias</h2>
+            <h3>Grafico de Calorias</h3>
             <RenderGraficoCaloriasFecha registros={registrosMostrar} />
-            <h2>Mapa de Usuarios por Pais</h2>
+            <h3>Mapa de Usuarios por Pais</h3>
             <MapaUsuarios/>
         </>
             :

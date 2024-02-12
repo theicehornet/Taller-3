@@ -6,6 +6,7 @@ export function useListaRegistro() {
     const [error, setError] = useState();
     const [registrosMostrar, setRegistrosMostrar] = useState([]);
     const user = useSelector((store) => store.userSlice.userLogged)
+    //En vez de useMemo se podria usar useCallback
     const getMostrarRegistros = useMemo(() => {
         return async () => {
             try {
@@ -31,7 +32,7 @@ export function useListaRegistro() {
                         RegistroMostrarMapped.push(objret);
                     }
                 });
-                
+                getSortedRegisters(RegistroMostrarMapped);
                 setRegistrosMostrar(RegistroMostrarMapped);
             } catch (err) {
                 setError(err.message);
@@ -41,6 +42,19 @@ export function useListaRegistro() {
     }, [user]);
 
     useEffect(() => { getMostrarRegistros(); }, [getMostrarRegistros])
+
+    const getSortedRegisters = (registros) => {
+        return registros.sort((a, b) => {
+            const fecha1 = new Date(a.fecha);
+            const fecha2 = new Date(b.fecha);
+            if (fecha1 < fecha2) {
+                return 1;
+            } else if (fecha1 > fecha2) {
+                return -1;
+            }
+            return 0;
+        })
+    }
 
     return { user, error, registrosMostrar, setRegistrosMostrar, getMostrarRegistros, setError }
 }

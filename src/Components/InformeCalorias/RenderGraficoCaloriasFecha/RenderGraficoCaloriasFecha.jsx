@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Bar, CartesianGrid, XAxis, YAxis, ResponsiveContainer, BarChart, Legend, Tooltip } from 'recharts';
 
 const RenderGraficoCaloriasFecha = ({ registros }) => {
+    //TODO CREAR HOOK DE TODO EL USEEFFECT
     const [data, setData] = useState([])
     useEffect(() => {
         const datosSemana = [];
@@ -51,7 +52,6 @@ const RenderGraficoCaloriasFecha = ({ registros }) => {
                 dia = 31;
                 fechasPermitidas.push(anio.toString() + "-" + (mes < 10 ? "0" : "") + mes.toString() + "-" + (dia < 10 ? "0" : "") + dia.toString())
             } else {
-                console.log(dia);
                 if (dia < 10 && mes < 10) {
                     fechasPermitidas.push(`${anio}-0${mes}-0${dia}`)
                 } else if (dia < 10 && mes >= 10) {
@@ -62,7 +62,6 @@ const RenderGraficoCaloriasFecha = ({ registros }) => {
             }
             
         }
-        console.log(fechasPermitidas);
         fechasPermitidas.forEach(fecha => {
             datosSemana.push({ fecha: fecha, calorias: 0 })
         })
