@@ -6,6 +6,7 @@ export function useListaRegistro() {
     const [error, setError] = useState();
     const [registrosMostrar, setRegistrosMostrar] = useState([]);
     const user = useSelector((store) => store.userSlice.userLogged)
+    
     //En vez de useMemo se podria usar useCallback
     const getMostrarRegistros = useMemo(() => {
         return async () => {

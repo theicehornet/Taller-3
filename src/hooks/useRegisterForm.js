@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoggedIn } from '../app/slices/userSlice';
 
+
 export function useRegisterForm() {
     const [error, setError] = useState(null);
+    
     const dispatcher = useDispatch()
     const sendRegister = async ({ userName, passw, codpais, caloriasmax }) => {
         try {

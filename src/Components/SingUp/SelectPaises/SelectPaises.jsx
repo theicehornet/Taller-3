@@ -1,6 +1,8 @@
 
-import fetchPaises from "../../../Services/fetchPaises";
+//import fetchPaises from "../../../Services/fetchPaises";
 import {useState,useEffect,useCallback } from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import { SetPaises } from '../../../app/slices/paisesSlice';
 
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,19 +12,23 @@ import Select from '@mui/material/Select';
 
 export default function SelectPaises() {
     const [pais, setPais] = useState('');
-
+    const paisesStored = useSelector((store) => store.paisesSlice.paisesStored);
+    const dispatcher = useDispatch()
     const [paises, setPaises] = useState([])
     const [error, setError] = useState('')
+
     const getPaises = useCallback(async () => {
         try {
-            const paises = await fetchPaises();
-            setPaises(paises);
+            if (localStorage.getItem("paisesData") == null) {
+                dispatcher(SetPaises())
+            }
+            setPaises(await paisesStored);
+        } catch (err) {
+            setError(err);
         }
-        catch (err) {
-            setError(err)
-        }
+        console.log(await paisesStored);
     }, [])
-
+    
     useEffect(() => {
         getPaises();
     }, [getPaises])
@@ -30,6 +36,7 @@ export default function SelectPaises() {
     const handleChange = (event) => {
         setPais(event.target.value);
     };
+    
     return (
         <Box sx={{ minWidth: 120 }}>
             <FormControl fullWidth>
@@ -43,9 +50,9 @@ export default function SelectPaises() {
                     onChange={handleChange}
                 >
                     {
-                        error ? <MenuItem>{error}</MenuItem>
+                        error ? <MenuItem>hubo un error:v</MenuItem>
                             :
-                        paises.length > 0 ?
+                            paises.length > 0 ?
                             paises.map(pais => <MenuItem key={pais.id} value={pais.id}>{pais.name}</MenuItem>) : <MenuItem>Cargando...</MenuItem>
                     }
                 </Select>
