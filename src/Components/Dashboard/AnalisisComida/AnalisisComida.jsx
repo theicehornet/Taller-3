@@ -1,11 +1,12 @@
 import CaloriasTotales from "./CaloriasTotales/CaloriasTotales";
 import CaloriasDiarias from "./CaloriasDiarias/CaloriasDiarias";
-import { useListaRegistro } from "../../hooks/useMostrarRegistros";
+import { useListaRegistro } from "../../../hooks/useMostrarRegistros";
 import './AnalisisComida.css'
 
 
 export default function AnalisisComida() {
     const { user, registrosMostrar } = useListaRegistro()
+    console.log(registrosMostrar);
     return (
         user != undefined ?
             <div className="Analisis-Comida">

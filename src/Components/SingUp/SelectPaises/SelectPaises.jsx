@@ -26,7 +26,6 @@ export default function SelectPaises() {
         } catch (err) {
             setError(err);
         }
-        console.log(await paisesStored);
     }, [])
     
     useEffect(() => {
@@ -50,7 +49,7 @@ export default function SelectPaises() {
                     onChange={handleChange}
                 >
                     {
-                        error ? <MenuItem>hubo un error:v</MenuItem>
+                        error ? <MenuItem>hubo un error</MenuItem>
                             :
                             paises.length > 0 ?
                             paises.map(pais => <MenuItem key={pais.id} value={pais.id}>{pais.name}</MenuItem>) : <MenuItem>Cargando...</MenuItem>

@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import SelectComidas from "./SelectComidas/SelectComidas";
-import useRegisterComidaForm from '../../hooks/useRegisterComidaForm'
+import useRegisterComidaForm from '../../../hooks/useRegisterComidaForm'
 import { useState } from "react";
 
 const defaultTheme = createTheme();
@@ -49,7 +49,7 @@ export default function FormRegistroComida() {
         <>
             {
                 user != undefined ?
-                    <>
+                    <section id="FormRegistroAlimenticio">
                         <ThemeProvider theme={defaultTheme}>
                             <Container component="main" maxWidth="xs">
                                 <CssBaseline />
@@ -64,7 +64,7 @@ export default function FormRegistroComida() {
                                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                                         <AddBoxOutlinedIcon />
                                     </Avatar>
-                                    <Typography component="h2" variant="h3">
+                                    <Typography component="h2" variant="h4">
                                         Registrar Comida
                                     </Typography>
                                     <Typography component="h3" variant="h5">
@@ -88,7 +88,6 @@ export default function FormRegistroComida() {
                                             name="fechaConsumo"
                                             type="date"
                                             id="fechaConsumo"
-                                            autoFocus
                                         />
                                         <Button
                                             type="submit"
@@ -106,7 +105,7 @@ export default function FormRegistroComida() {
                                 </Box>
                             </Container>
                         </ThemeProvider>
-                    </>
+                    </section>
                     :
                     <p>Usted no se encuentra logueado</p>
             }
