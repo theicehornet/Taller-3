@@ -17,6 +17,7 @@ const RenderGraficoCaloriasFecha = ({ registros }) => {
             <Legend />
             <Bar dataKey="calorias" fill="#4c8435" />
         </BarChart>
+        {registros.length == 0 && <p>No hay registros</p>}
     </ResponsiveContainer>)
 }
 

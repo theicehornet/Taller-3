@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 export default function CaloriasDiarias({ registrosMostrar, caloriasDiarias }) {
-    const [reload, setReload] = useState(false)
     const [caloriasTotales, setCaloriasTotales] = useState(0);
     const [style, setStyle] = useState('Good')
     useEffect(() => {
@@ -15,7 +14,6 @@ export default function CaloriasDiarias({ registrosMostrar, caloriasDiarias }) {
             if (anio == regisFecha[0] && dia == regisFecha[2] && mes == regisFecha[1]) {
                 calorias += registro.caloriasConsumida;
             }
-            setReload(true)
         })
         if (calorias > caloriasDiarias) {
             setStyle("Bad");
@@ -26,5 +24,5 @@ export default function CaloriasDiarias({ registrosMostrar, caloriasDiarias }) {
     }, [registrosMostrar, caloriasDiarias])
 
 
-    return (reload ? <p >Las calorias diarias consumidas hoy son: <span className={style}>{caloriasTotales}</span></p> : <p>Cargando...</p>)
+    return (<p >Las calorias diarias consumidas hoy son: <span className={style}>{caloriasTotales}</span></p>)
 }

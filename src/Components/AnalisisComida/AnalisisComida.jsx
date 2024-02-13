@@ -7,7 +7,7 @@ import './AnalisisComida.css'
 export default function AnalisisComida() {
     const { user, registrosMostrar } = useListaRegistro()
 
-
+    console.log(registrosMostrar);
     return (
         user != undefined ?
             <div className="Analisis-Comida">

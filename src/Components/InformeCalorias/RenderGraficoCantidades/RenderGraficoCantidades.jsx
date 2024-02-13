@@ -9,6 +9,7 @@ const RenderGraficoCantidades = ({ data }) => {
             <Legend />
             <Bar dataKey="cantidad" fill="#4c8435" />
         </BarChart>
+        {data.length == 0 && <p>No hay registros</p>}
     </ResponsiveContainer>)
 }
 
