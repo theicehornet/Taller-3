@@ -9,18 +9,6 @@ function SessionActiva({ fun } ) {
         <>
             <ul className="List-Session">
                 <li>
-                    <Link to={"/AnalisisComidas"}>Analisis</Link>
-                </li>
-                <li>
-                    <Link to={"/InformeComidas"}>Informe</Link>
-                </li>
-                <li>
-                    <Link to={"/RegistrosComidas"}>Listado de Registros</Link>
-                </li>
-                <li>
-                    <Link to={"/RegistrarComida"}>Agregar Registros</Link>
-                </li>
-                <li>
                     <Link to={"/Dashboard"}>Dashboard</Link>
                 </li>
                 <li>
