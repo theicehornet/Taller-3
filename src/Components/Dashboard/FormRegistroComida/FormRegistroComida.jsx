@@ -16,7 +16,7 @@ import { useState } from "react";
 const defaultTheme = createTheme();
 
 
-export default function FormRegistroComida() {
+export default function FormRegistroComida({ getMostrarRegistros }) {
     const { error, sendRegisterComida, validateForm, registroEnviado, comidas, errorComidas, user } = useRegisterComidaForm()
     const [unidadAConsumir, setUnidadAConsumir] = useState('')
     const [comidaSelected, setComidaSelected] = useState('')
@@ -42,6 +42,7 @@ export default function FormRegistroComida() {
         }
         if (validateForm(plato)) {
             sendRegisterComida(plato)
+            getMostrarRegistros()
         }
     }
 

@@ -1,8 +1,7 @@
 .Analisis-Comida{
     display:flex;
     flex-direction:row;
-    justify-content:space-between;
-    gap:50px;
+    justify-content:space-evenly;
 }
 
 .Analisis-Comida p {

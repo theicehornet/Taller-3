@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { useListaRegistro } from '../../../hooks/useMostrarRegistros';
 import './listaRegistros.css'
 import fetchEliminarRegistro from '../../../Services/fetchEliminarRegistro'
 import { useState } from 'react';
@@ -10,10 +9,10 @@ function UrlImage(idimage) {
     return ENDPOINT_IMAGES + idimage + ".png";
 }
 
-export default function ListaRegistro() {
-    const { user, error, registrosMostrar, setRegistrosMostrar, setError } = useListaRegistro();
+export default function ListaRegistro({ user, error, registrosMostrar, setRegistrosMostrar }) {
     const [registrosFiltro, setRegistroFiltro] = useState([]);
     const selectFiltro = useRef();
+    const [listaError, setListaError] = useState(error);
 
     const getFechasPermitidas = (cantDias) => {
         const d = new Date();
@@ -86,7 +85,7 @@ export default function ListaRegistro() {
             setRegistrosMostrar(newregistros.filter(registro => registro.id != idRegistroEliminar))
             setRegistroFiltro(newregistros.filter(registro => registro.id != idRegistroEliminar))
         } catch (err) {
-            setError(err.message)
+            setListaError(err.message)
         }
     }
 
@@ -106,7 +105,7 @@ export default function ListaRegistro() {
                 <option value="2">Ultimo mes</option>
             </select>
             {
-                user != undefined ? registrosFiltro.length == 0 ? <p>Por ahora no tiene ningun registro</p> :
+                 registrosFiltro.length == 0 ? <p>Por ahora no tiene ningun registro</p> :
                     (<ul className="lista-registros">
                         {
                             registrosFiltro.map(registro => (
@@ -123,9 +122,8 @@ export default function ListaRegistro() {
                                 ))
                         }
                     </ul>)
-                    : <p>Usted no se encuentra logueado.</p>
             }
-            {error && <p>{error}</p>}
+            {listaError && <p>{listaError}</p>}
         </section>
     )
 }

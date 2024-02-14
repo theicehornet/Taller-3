@@ -1,4 +1,3 @@
-import { useListaRegistro } from "../../../hooks/useMostrarRegistros";
 import MapaUsuarios from "./MapaUsuarios/MapaUsuarios";
 import RenderGraficoCaloriasFecha from './RenderGraficoCaloriasFecha/RenderGraficoCaloriasFecha'
 import RenderGraficoCantidades from './RenderGraficoCantidades/RenderGraficoCantidades'
@@ -7,8 +6,7 @@ import TiempoRestante from "./TiempoRestante/TiempoRestante";
 
 
 
-export default function InformeCalorias() {
-    const { user, registrosMostrar } = useListaRegistro()
+export default function InformeCalorias({registrosMostrar }) {
     const CantidadVecesConsumidoAlimento = () => {
         const listdev = [];
         registrosMostrar.forEach(registro => {
@@ -28,8 +26,7 @@ export default function InformeCalorias() {
         return listdev;
     }
 
-    return (
-        user != undefined ? <section id="Informes">
+    return ( <section id="Informes">
             <h2>Informes</h2>
             <h3>Tiempo Restante</h3>
             <TiempoRestante/>
@@ -40,7 +37,5 @@ export default function InformeCalorias() {
             <h3>Mapa de Usuarios por Pais</h3>
             <MapaUsuarios/>
         </section>
-            :
-            <p>Usted no se encuentra logueado!</p>
     )
 }

@@ -1,7 +1,8 @@
 nav{
     display:flex;
     flex-direction:row;
-    justify-content:space-between
+    justify-content:space-between;
+    width:100%;
 }
 
 nav ul{
@@ -10,10 +11,32 @@ nav ul{
     flex-direction:row;
     justify-content:center;
     gap:20px;
+    
 }
+
+nav ul li a {
+    margin-top:10px;
+    padding:10px;
+    border:1px solid #525252;
+    border-radius:30px;
+    color:#525252;
+}
+
+nav ul li a:hover {
+    color:#525252;
+}
+
+nav ul li a:active {
+    background:#efefef;
+}
+
 
 .List-No-Session{
     width:100%;
     display:flex;
     justify-content:end;
+}
+
+.CerrarSession {
+    margin-right: 20px;
 }

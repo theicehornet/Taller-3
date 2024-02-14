@@ -15,7 +15,7 @@ function SessionActiva({ fun } ) {
                     <Link to={"/"}>Inicio</Link>
                 </li>
             </ul>
-            <ul>
+            <ul className="CerrarSession">
                 <li>
                     <Link to={"/"} onClick={fun}>Cerrar Session</Link>
                 </li>

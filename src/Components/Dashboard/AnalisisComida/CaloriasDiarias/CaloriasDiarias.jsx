@@ -19,6 +19,8 @@ export default function CaloriasDiarias({ registrosMostrar, caloriasDiarias }) {
             setStyle("Bad");
         } else if (caloriasDiarias >= calorias && caloriasDiarias * 0.9 <= calorias) {
             setStyle("AlmostBad")
+        } else {
+            setStyle('Good')
         }
         setCaloriasTotales(calorias);
     }, [registrosMostrar, caloriasDiarias])
