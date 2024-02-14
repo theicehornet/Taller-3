@@ -5,7 +5,7 @@ import './AnalisisComida.css'
 
 export default function AnalisisComida({ user, registrosMostrar }) {
     return (
-            <div className="Analisis-Comida">
+        <div id="Informe" className="Analisis-Comida">
                 <CaloriasTotales registrosMostrar={registrosMostrar}  />
                 <CaloriasDiarias registrosMostrar={registrosMostrar} caloriasDiarias={user.caloriasDiarias} />
             </div>

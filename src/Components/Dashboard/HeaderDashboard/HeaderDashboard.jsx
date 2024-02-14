@@ -5,13 +5,16 @@ export default function HeaderDashboard() {
         <nav className="HeaderDashboard">
             <ul>
                 <li>
+                    <a href="#Informe">Informe</a>
+                </li>
+                <li>
                     <a href="#FormRegistroAlimenticio">Agregar Comida</a>
                 </li>
                 <li>
                     <a href="#RegistrosAlimenticios">Registros Alimenticios</a>
                 </li>
                 <li>
-                    <a href="#Informes">Informe</a>
+                    <a href="#Calorias">Calorias</a>
                 </li>
             </ul>
         </nav>

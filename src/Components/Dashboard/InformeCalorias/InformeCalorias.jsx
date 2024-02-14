@@ -26,8 +26,8 @@ export default function InformeCalorias({registrosMostrar }) {
         return listdev;
     }
 
-    return ( <section id="Informes">
-            <h2>Informes</h2>
+    return (<section id="Calorias">
+            <h2>Calorias</h2>
             <h3>Tiempo Restante</h3>
             <TiempoRestante/>
             <h3>Grafico de cantidades</h3>
