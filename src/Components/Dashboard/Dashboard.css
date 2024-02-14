@@ -12,3 +12,7 @@ main{
     flex-wrap: wrap;
     align-content: center;
 }
+
+main section:first-of-type{
+    height: 100vh;
+}
