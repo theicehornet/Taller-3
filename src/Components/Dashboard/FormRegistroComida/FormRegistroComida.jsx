@@ -17,7 +17,8 @@ const defaultTheme = createTheme();
 
 
 export default function FormRegistroComida({ getMostrarRegistros }) {
-    const { error, sendRegisterComida, validateForm, registroEnviado, comidas, errorComidas, user } = useRegisterComidaForm()
+    const { error, sendRegisterComida, validateForm, registroEnviado, comidas, errorComidas } = useRegisterComidaForm()
+    const [mensajeRegistro, setMensajeRegistro] = useState("")
     const [unidadAConsumir, setUnidadAConsumir] = useState('')
     const [comidaSelected, setComidaSelected] = useState('')
     const handleChange = (event) => {
@@ -31,7 +32,7 @@ export default function FormRegistroComida({ getMostrarRegistros }) {
         }
     }
 
-    const handleSubmitRegistroComida = (event) => {
+    const handleSubmitRegistroComida = async (event) => {
         event.preventDefault();
         const fields = new window.FormData(event.target);
         const plato = {
@@ -41,15 +42,21 @@ export default function FormRegistroComida({ getMostrarRegistros }) {
             "unidadConsumida": unidadAConsumir,
         }
         if (validateForm(plato)) {
-            sendRegisterComida(plato)
-            getMostrarRegistros()
+            setMensajeRegistro("Se ha registrado el alimento")
+            setTimeout(() => {
+                setMensajeRegistro("")
+            }, 4000)
+            await sendRegisterComida(plato)
+            
+            await getMostrarRegistros()
+            
+            
         }
     }
 
     return (
         <>
             {
-                user != undefined ?
                     <section id="FormRegistroAlimenticio">
                         <ThemeProvider theme={defaultTheme}>
                             <Container component="main" maxWidth="xs">
@@ -107,11 +114,9 @@ export default function FormRegistroComida({ getMostrarRegistros }) {
                             </Container>
                         </ThemeProvider>
                     </section>
-                    :
-                    <p>Usted no se encuentra logueado</p>
             }
             {
-                registroEnviado && <p>Se ha enviado el registro</p>
+                registroEnviado && <p>{mensajeRegistro}</p>
             }
             {
                 error && <p>{error}</p>
