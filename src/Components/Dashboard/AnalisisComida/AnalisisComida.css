@@ -1,7 +1,12 @@
 .Analisis-Comida{
     display:flex;
-    flex-direction:row;
+    flex-direction:column;
     justify-content:space-evenly;
+}
+.Analisis-Comida div:nth-of-type(2){
+    text-align:center;
+    width:40%;
+    align-self:center;
 }
 
 .Analisis-Comida p {
@@ -11,6 +16,9 @@
 }
 
 .Good {
+    padding: 4px;
+    border: 1px solid green;
+    border-radius: 20px;
     background-color: green;
 }
 
@@ -21,6 +29,9 @@
     background-color: red;
 }
 
-.AlmostBad{
-    background-color:yellow;
+.AlmostBad {
+    padding: 4px;
+    border: 1px solid yellow;
+    border-radius: 20px;
+    background-color: yellow;
 }

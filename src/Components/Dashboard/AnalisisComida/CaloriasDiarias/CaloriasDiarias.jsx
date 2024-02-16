@@ -26,5 +26,5 @@ export default function CaloriasDiarias({ registrosMostrar, caloriasDiarias }) {
     }, [registrosMostrar, caloriasDiarias])
 
 
-    return (<p >Las calorias diarias consumidas hoy son: <span className={style}>{caloriasTotales.toFixed(3)}</span></p>)
+    return (<p >Las calorias diarias consumidas hoy son: <span className={style}>{caloriasTotales.toFixed(3)}</span>cal</p>)
 }
