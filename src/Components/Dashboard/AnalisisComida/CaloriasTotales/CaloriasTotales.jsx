@@ -11,5 +11,5 @@ export default function CaloriasTotales({ registrosMostrar }) {
     }, [registrosMostrar])
     
 
-    return (<p>Las calorias totales son: {caloriasTotales}</p>)
+    return (<p>Las calorias totales son: {caloriasTotales.toFixed(3)}</p>)
 }
