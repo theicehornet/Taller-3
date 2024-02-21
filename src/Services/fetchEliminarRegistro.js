@@ -11,8 +11,7 @@ export default function eliminarRegistro(userData, registroid){
         }
     }).then(data => {
         if (!data.ok) {
-            console.log(data)
-            Promise.reject("Hubo un problema")
+            return Promise.reject("Hubo un problema")
         }
         return data.json()
     }).catch(err => {

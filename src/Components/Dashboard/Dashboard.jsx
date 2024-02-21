@@ -10,13 +10,14 @@ import HeaderDashboard from "./HeaderDashboard/HeaderDashboard";
 export default function Dashboard() {
     const { user, error, registrosMostrar, setRegistrosMostrar, getMostrarRegistros } = useListaRegistro()
     return (<>
-        {user ? <main>
-            <HeaderDashboard/>
-            <h1>Dashboard</h1>
-            <AnalisisComida user={user} registrosMostrar={registrosMostrar} />
-            <FormRegistroComida getMostrarRegistros={getMostrarRegistros}  />
-            <ListaRegistro user={user} registrosMostrar={registrosMostrar} error={error} setRegistrosMostrar={setRegistrosMostrar} getMostrarRegistros={getMostrarRegistros} />
-            <InformeCalorias registrosMostrar={registrosMostrar} />
+        {user ?
+            <main>
+                <HeaderDashboard/>
+                <h1>Dashboard</h1>
+                <AnalisisComida user={user} registrosMostrar={registrosMostrar} />
+                <FormRegistroComida getMostrarRegistros={getMostrarRegistros}  />
+                <ListaRegistro user={user} registrosMostrar={registrosMostrar} error={error} setRegistrosMostrar={setRegistrosMostrar} getMostrarRegistros={getMostrarRegistros} />
+                <InformeCalorias registrosMostrar={registrosMostrar} />
             </main>
             :
             <>
