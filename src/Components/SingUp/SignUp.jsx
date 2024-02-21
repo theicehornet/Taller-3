@@ -35,7 +35,8 @@ const defaultTheme = createTheme();
 export default function SignUp() {
     const { error, sendRegister, validateForm } = useRegisterForm();
     const [message, setMessage] = useState('')
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
       const data = new FormData(event.currentTarget);

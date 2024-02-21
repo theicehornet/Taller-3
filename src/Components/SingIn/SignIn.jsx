@@ -33,13 +33,14 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  let username = useRef();
+    let username = useRef();
     let password = useRef();
     const navigate = useNavigate();
 
     const [message, setMessage] = useState('')
     const [btnDisable, setBtnDisable] = useState(true)
     const { error, sendLogin, validateForm } = useLoginForm()
+
 const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -48,7 +49,7 @@ const handleSubmit = (event) => {
         setMessage("Se ha Iniciado session correctamente");
         setTimeout(function () {
             navigate('/')
-        }, 2000);
+        }, 8000);
     }
 };
 

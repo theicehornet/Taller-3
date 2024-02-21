@@ -8,6 +8,7 @@ export default function useRegisterComidaForm() {
     const [error, setError] = useState(null);
     const [registroEnviado, setRegistroEnviado] = useState(false);
     const user = useSelector((store) => store.userSlice.userLogged)
+    const alimentosGuardados = useSelector((store) => store.alimentosSlice.alimentosStored)
 
     const sendRegisterComida = async ({ idAlimento, cantidad, fecha }) => {
         try {
@@ -65,14 +66,13 @@ export default function useRegisterComidaForm() {
     const alimentos = useCallback(async () => {
 
         try {
-            const alimentos = await fetchAlimentos(user);
-            alimentos.forEach(alimento => alimento.unidad = alimento.porcion.charAt(alimento.porcion.length - 1))
+            alimentosGuardados.forEach(alimento => alimento.unidad = alimento.porcion.charAt(alimento.porcion.length - 1))
             setComidas(alimentos);
         }
         catch (err) {
             setErrorComidas(err.message);
         }
-    }, [user])
+    }, [alimentosGuardados])
 
     useEffect(() => {
         alimentos();

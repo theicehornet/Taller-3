@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoggedIn } from '../app/slices/userSlice';
+import { SetRegistros } from '../app/slices/registrosSlice';
+import { SetAlimentos } from '../app/slices/alimentosSlice';
+import fetchRegistros from '../Services/registros';
+import fetchAlimentos from '../Services/comidas';
 
 export function useLoginForm() {
     const [error, setError] = useState(null);
@@ -22,7 +26,11 @@ export function useLoginForm() {
                 throw new Error({ message:"Hubo un problema al enviar sus datos"})
             }
             const data = await response.json();
-            dispatcher(LoggedIn(data))
+            const registros = await fetchRegistros(data)
+            const alimentos = await fetchAlimentos(data)
+            dispatcher(LoggedIn(data));
+            dispatcher(SetRegistros(registros));
+            dispatcher(SetAlimentos(alimentos));
             setError(null)
         } catch (err) {
             setError(err.message);

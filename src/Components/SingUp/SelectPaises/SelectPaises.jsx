@@ -9,6 +9,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import fetchPaises from '../../../Services/fetchPaises';
+
+
 
 export default function SelectPaises() {
     const [pais, setPais] = useState('');
@@ -20,13 +23,14 @@ export default function SelectPaises() {
     const getPaises = useCallback(async () => {
         try {
             if (localStorage.getItem("paisesData") == null) {
-                dispatcher(SetPaises())
+                let paises = await fetchPaises()
+                dispatcher(SetPaises(paises))
             }
-            setPaises(await paisesStored);
+            setPaises(paisesStored);
         } catch (err) {
             setError(err);
         }
-    }, [])
+    }, [dispatcher, paisesStored])
     
     useEffect(() => {
         getPaises();

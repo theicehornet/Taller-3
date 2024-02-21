@@ -4,7 +4,7 @@ import Header from '../Components/Header'
 import SignUp from '../Components/SingUp/SignUp'
 import Dashboard from '../Components/Dashboard'
 import Home from '../Components/Home/Home'
-
+import NotFound from '../Components/NotFound'
 
 export default function Rutas() {
     return (
@@ -13,5 +13,6 @@ export default function Rutas() {
             <Route path='/RegistroUsuario' element={<SignUp />} />
             <Route path='/InicioSession' element={<SignIn />} />
             <Route path='/Dashboard' element={<><Header /><Dashboard /></>} />
+            <Route path='/*' element={<NotFound/>} />
     </Routes>)
 }
