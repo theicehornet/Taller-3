@@ -5,11 +5,9 @@
     flex-wrap:wrap;
     align-content:center;
     justify-content: space-around;
-    position: fixed;
-    top: inherit;
-    left: 0;
-    right:0;
+    position: sticky;
+    top: 0;
+    background-color:white;
     margin:0 auto;
     z-index: 1000;
-    width:50%;
 }

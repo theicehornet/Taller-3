@@ -16,6 +16,9 @@ export default function HeaderDashboard() {
                 <li>
                     <a href="#Calorias">Calorias</a>
                 </li>
+                <li>
+                    <a href="#Mapa">Mapa</a>
+                </li>
             </ul>
         </nav>
     )

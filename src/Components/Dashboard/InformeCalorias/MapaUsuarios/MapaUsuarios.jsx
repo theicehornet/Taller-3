@@ -36,5 +36,9 @@ export default function MapaUsuarios() {
     }, [paisesfetch, usuariosPais])*/
 
 
-    return (<p>Hola soy el mapa</p>)
+    return (
+        <article id="Mapa">
+            <p>Hola soy el mapa</p>
+        </article>
+    )
 }
