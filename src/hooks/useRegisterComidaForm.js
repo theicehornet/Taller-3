@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import fetchAlimentos from '../Services/Comidas';
 import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { SetAlimentos } from '../app/slices/alimentosSlice';
 
 export default function useRegisterComidaForm() {
     const [comidas, setComidas] = useState([])
@@ -8,7 +9,7 @@ export default function useRegisterComidaForm() {
     const [error, setError] = useState(null);
     const [registroEnviado, setRegistroEnviado] = useState(false);
     const user = useSelector((store) => store.userSlice.userLogged)
-    const alimentosGuardados = useSelector((store) => store.alimentosSlice.alimentosStored)
+    const dispatcher = useDispatch()
 
     const sendRegisterComida = async ({ idAlimento, cantidad, fecha }) => {
         try {
@@ -66,13 +67,15 @@ export default function useRegisterComidaForm() {
     const alimentos = useCallback(async () => {
 
         try {
-            alimentosGuardados.forEach(alimento => alimento.unidad = alimento.porcion.charAt(alimento.porcion.length - 1))
-            setComidas(alimentos);
+            let newAlimentos = JSON.parse(localStorage.getItem("alimentosData"));
+            newAlimentos.forEach(alimento => alimento.unidad = alimento.porcion.charAt(alimento.porcion.length - 1))
+            dispatcher(SetAlimentos(newAlimentos))
+            setComidas(newAlimentos);
         }
         catch (err) {
             setErrorComidas(err.message);
         }
-    }, [alimentosGuardados])
+    }, [dispatcher])
 
     useEffect(() => {
         alimentos();

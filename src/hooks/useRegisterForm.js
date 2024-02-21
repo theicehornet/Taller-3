@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { LoggedIn } from '../app/slices/userSlice';
-import { SetRegistros } from '../app/slices/registrosSlice';
 import { SetAlimentos } from '../app/slices/alimentosSlice';
-import fetchRegistros from '../Services/registros';
 import fetchAlimentos from '../Services/comidas';
-
+import fetchPaises from '../Services/fetchPaises';
+import { SetPaises } from '../app/slices/paisesSlice';
 export function useRegisterForm() {
     const [error, setError] = useState(null);
     
@@ -31,12 +30,11 @@ export function useRegisterForm() {
                 })
             }
             const data = await response.json();
-            const registros = await fetchRegistros(data)
             const alimentos = await fetchAlimentos(data)
-            
+            const paises = await fetchPaises(data)
             dispatcher(LoggedIn( data));
-            dispatcher(SetRegistros( registros));
-            dispatcher(SetAlimentos( alimentos));
+            dispatcher(SetAlimentos(alimentos));
+            dispatcher(SetPaises(paises))
         }
         catch (err) {
             setError(err.message);

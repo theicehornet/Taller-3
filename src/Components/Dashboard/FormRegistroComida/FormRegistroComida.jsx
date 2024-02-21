@@ -21,7 +21,6 @@ export default function FormRegistroComida({ getMostrarRegistros }) {
     const [mensajeRegistro, setMensajeRegistro] = useState("")
     const [unidadAConsumir, setUnidadAConsumir] = useState('')
     const [comidaSelected, setComidaSelected] = useState('')
-
     const handleChange = (event) => {
         const currentIdFood = event.target.value;
         const filterFood = comidas.filter(comida => comida.id == parseInt(currentIdFood))
@@ -43,14 +42,12 @@ export default function FormRegistroComida({ getMostrarRegistros }) {
             "unidadConsumida": unidadAConsumir,
         }
         if (validateForm(plato)) {
+            await sendRegisterComida(plato)
+            await getMostrarRegistros(true)
             setMensajeRegistro("Se ha registrado el alimento")
             setTimeout(() => {
                 setMensajeRegistro("")
             }, 4000)
-            await sendRegisterComida(plato)
-            
-            await getMostrarRegistros()
-            
             
         }
     }

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { LoggedOut } from '../../../../app/slices/userSlice'
+import { EraseRegistros } from "../../../../app/slices/registrosSlice";
 
 
 function SessionActiva({ fun } ) {
@@ -45,6 +46,7 @@ export default function NavInformation() {
 
     const handleClickCerrarSession = () => {
         dispatcher(LoggedOut())
+        dispatcher(EraseRegistros())
     }
     return (
         <>

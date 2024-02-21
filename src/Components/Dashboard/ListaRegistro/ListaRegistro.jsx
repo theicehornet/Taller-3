@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react';
 import './listaRegistros.css'
 import fetchEliminarRegistro from '../../../Services/fetchEliminarRegistro'
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { SetRegistros } from '../../../app/slices/registrosSlice';
 
 const ENDPOINT_IMAGES = `https://calcount.develotion.com/imgs/`;
 
@@ -9,10 +11,11 @@ function UrlImage(idimage) {
     return ENDPOINT_IMAGES + idimage + ".png";
 }
 
-export default function ListaRegistro({ user, error, registrosMostrar, setRegistrosMostrar }) {
+export default function ListaRegistro({ user, error, registrosMostrar, setRegistrosMostrar, getMostrarRegistros }) {
     const [registrosFiltro, setRegistroFiltro] = useState([]);
     const selectFiltro = useRef();
     const [listaError, setListaError] = useState(error);
+    const dispatcher = useDispatch();
 
     const getFechasPermitidas = (cantDias) => {
         const d = new Date();
@@ -54,19 +57,17 @@ export default function ListaRegistro({ user, error, registrosMostrar, setRegist
         return fechasPermitidas;
     }
 
-
     const getRegistrosByFiltro = (filtro) => {
         if (filtro == "0") {
             setRegistroFiltro(registrosMostrar)
         }
         else if (filtro == "1") {
             const fechasPermitidas = getFechasPermitidas(7)
-            console.log(fechasPermitidas);
-            setRegistroFiltro(registrosMostrar.filter(registro => fechasPermitidas.includes(registro.fecha)))
-        } else {
+            setRegistroFiltro([...registrosMostrar].filter(registro => fechasPermitidas.includes(registro.fecha)))
+        }else {
             //TODO FILTRO DE MES
             const fechasPermitidas = getFechasPermitidas(30)
-            setRegistroFiltro(registrosMostrar.filter(registro => fechasPermitidas.includes(registro.fecha)))
+            setRegistroFiltro([...registrosMostrar].filter(registro => fechasPermitidas.includes(registro.fecha)))
         }
     }
 
@@ -80,10 +81,13 @@ export default function ListaRegistro({ user, error, registrosMostrar, setRegist
         const data = new window.FormData(event.target)
         const idRegistroEliminar = data.get("idRegistro");
         try {
-            fetchEliminarRegistro(user, idRegistroEliminar )
+            await fetchEliminarRegistro(user, idRegistroEliminar )
             let newregistros = [...registrosMostrar]
-            setRegistrosMostrar(newregistros.filter(registro => registro.id != idRegistroEliminar))
-            setRegistroFiltro(newregistros.filter(registro => registro.id != idRegistroEliminar))
+            let registrosFiltrados = newregistros.filter(registro => registro.id != idRegistroEliminar)
+            setRegistroFiltro([...registrosFiltro].filter(registro => registro.id != idRegistroEliminar))
+            dispatcher(SetRegistros(registrosFiltrados))
+            setRegistrosMostrar(JSON.parse(localStorage.getItem("registrosAlimenticios")))
+            selectFiltro.current.value = "0";
         } catch (err) {
             setListaError(err.message)
         }
@@ -92,6 +96,7 @@ export default function ListaRegistro({ user, error, registrosMostrar, setRegist
     useEffect(() => {
         setRegistroFiltro(registrosMostrar)
     }, [registrosMostrar])
+
     
 
     return (

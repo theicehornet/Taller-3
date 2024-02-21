@@ -9,10 +9,14 @@ export const registrosSlice = createSlice({
         SetRegistros: (state, action) => {
             localStorage.setItem("registrosAlimenticios", JSON.stringify(action.payload))
             state.registrosStored = action.payload;
+        },
+        EraseRegistros: (state) => {
+            localStorage.removeItem("registrosAlimenticios")
+            state.registrosStored = null;
         }
     }
 })
 
 
-export const { SetRegistros } = registrosSlice.actions;
+export const { SetRegistros, EraseRegistros } = registrosSlice.actions;
 export default registrosSlice.reducer;

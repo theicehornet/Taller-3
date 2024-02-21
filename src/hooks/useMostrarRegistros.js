@@ -2,14 +2,23 @@ import { useEffect, useMemo, useState } from "react"
 import fetchAlimentos from '../Services/comidas'
 import fetchRegistros from '../Services/registros'
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { SetRegistros } from "../app/slices/registrosSlice";
+
+
+
 export function useListaRegistro() {
     const [error, setError] = useState();
     const [registrosMostrar, setRegistrosMostrar] = useState([]);
     const user = useSelector((store) => store.userSlice.userLogged)
-    
+    const dispatcher = useDispatch();
     //En vez de useMemo se podria usar useCallback
     const getMostrarRegistros = useMemo(() => {
-        return async () => {
+        return async (refresh) => {
+            if (localStorage.getItem("registrosAlimenticios") != null && !refresh) {
+                setRegistrosMostrar(JSON.parse(localStorage.getItem("registrosAlimenticios")));
+                return;
+            }
             try {
                 const regis = await fetchRegistros(user);
                 const alimentos = await fetchAlimentos(user);
@@ -35,14 +44,15 @@ export function useListaRegistro() {
                 });
                 getSortedRegisters(RegistroMostrarMapped);
                 setRegistrosMostrar(RegistroMostrarMapped);
+                dispatcher(SetRegistros(RegistroMostrarMapped))
             } catch (err) {
                 setError(err.message);
             }
         }
 
-    }, [user]);
+    }, [user, dispatcher]);
 
-    useEffect(() => { getMostrarRegistros(); }, [getMostrarRegistros])
+    useEffect(() => { getMostrarRegistros(false); }, [getMostrarRegistros])
 
     const getSortedRegisters = (registros) => {
         return registros.sort((a, b) => {

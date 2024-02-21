@@ -49,7 +49,7 @@ const handleSubmit = (event) => {
         setMessage("Se ha Iniciado session correctamente");
         setTimeout(function () {
             navigate('/')
-        }, 8000);
+        }, 2000);
     }
 };
 

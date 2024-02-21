@@ -15,7 +15,7 @@ export default function Dashboard() {
             <h1>Dashboard</h1>
             <AnalisisComida user={user} registrosMostrar={registrosMostrar} />
             <FormRegistroComida getMostrarRegistros={getMostrarRegistros}  />
-            <ListaRegistro user={user} registrosMostrar={registrosMostrar} error={error} setRegistrosMostrar={setRegistrosMostrar} />
+            <ListaRegistro user={user} registrosMostrar={registrosMostrar} error={error} setRegistrosMostrar={setRegistrosMostrar} getMostrarRegistros={getMostrarRegistros} />
             <InformeCalorias registrosMostrar={registrosMostrar} />
             </main>
             :
