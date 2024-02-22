@@ -1,0 +1,9 @@
+.leaflet-container{
+    height:800px;
+    width:800px;
+    border: 1px solid black;
+}
+#Mapa{
+    display:flex;
+    justify-content:center;
+}
