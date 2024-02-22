@@ -46,7 +46,7 @@ export default function FormRegistroComida({ getMostrarRegistros }) {
             await getMostrarRegistros(true)
             setMensajeRegistro("Se ha registrado el alimento")
             setTimeout(() => {
-                setMensajeRegistro("")
+                setMensajeRegistro(null)
             }, 4000)
             
         }
@@ -110,19 +110,18 @@ export default function FormRegistroComida({ getMostrarRegistros }) {
                                     </Box>
                                 </Box>
                             </Container>
-                        </ThemeProvider>
+                    </ThemeProvider>
+                    {
+                        registroEnviado && <p>{mensajeRegistro}</p>
+                    }
+                    {
+                        error && <p>{error}</p>
+                    }
+                    {
+                        errorComidas && <p>{errorComidas}</p>
+                    }
                     </section>
             }
-            {
-                registroEnviado && <p>{mensajeRegistro}</p>
-            }
-            {
-                error && <p>{error}</p>
-            }
-            {
-                errorComidas && <p>{errorComidas}</p>
-            }
-           
         </>
     )
 }

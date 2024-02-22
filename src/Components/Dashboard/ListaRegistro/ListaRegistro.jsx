@@ -87,9 +87,6 @@ export default function ListaRegistro({ user, error, registrosMostrar, setRegist
             setRegistroFiltro([...registrosFiltro].filter(registro => registro.id != idRegistroEliminar))
             dispatcher(SetRegistros(registrosFiltrados))
             setRegistrosMostrar(JSON.parse(localStorage.getItem("registrosAlimenticios")))
-            let currentfiltervalue = selectFiltro.current.value;
-            selectFiltro.current.value = "0";
-            selectFiltro.current.value = currentfiltervalue;
         } catch (err) {
             setListaError(err.message)
         }
@@ -97,6 +94,8 @@ export default function ListaRegistro({ user, error, registrosMostrar, setRegist
 
     useEffect(() => {
         setRegistroFiltro(registrosMostrar)
+        let currentfiltervalue = selectFiltro.current.value;
+        getRegistrosByFiltro(currentfiltervalue);
     }, [registrosMostrar])
 
     
